@@ -38,6 +38,12 @@
             border-color: #3b82f6; /* Azul primário */
             box-shadow: 0 0 0 3px #bfdbfe; /* Anel de foco leve */
         }
+        /* Responsividade: Centraliza o quiz verticalmente no desktop, mas permite rolagem no celular */
+        @media (max-width: 640px) {
+            .flex-grow.flex.items-center.justify-center {
+                align-items: flex-start; /* Alinha ao topo em telas pequenas */
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -117,11 +123,9 @@
                 </div>
             </div>
 
-            <!-- Área de Mensagem (Sucesso/Erro) -->
+            <!-- Área de Mensagem (Sucesso/Reset) - Conteúdo injetado via JS -->
             <div id="message-area" class="hidden text-center p-6 rounded-lg bg-green-100 text-green-700 font-bold shadow-lg">
-                <svg class="h-10 w-10 mx-auto mb-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <p>Obrigado por sua participação!</p>
-                <p class="text-sm font-normal mt-1">Suas respostas foram salvas com sucesso na nuvem.</p>
+                <!-- Conteúdo de sucesso e botão de reset serão injetados aqui. -->
             </div>
 
             <!-- Botões de Navegação -->
@@ -159,7 +163,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         // Importa getDoc para buscar documento específico
-        import { getFirestore, doc, setDoc, collection, getDocs, Timestamp, enableIndexedDbPersistence, setLogLevel, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, collection, getDocs, Timestamp, enableIndexedDbPersistence, setLogLevel, getDoc, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
         // Ativa o log de debug do Firestore
         setLogLevel('debug');
@@ -259,6 +263,40 @@
             errorMessage.textContent = message;
             errorModal.classList.remove('hidden');
         }
+        
+        // NOVO: Função para exibir a tela de sucesso/conclusão
+        window.showSuccessScreen = function(isCompletedSubmission) {
+            document.getElementById('navigation-buttons').classList.add('hidden');
+            questionArea.classList.add('hidden');
+            messageArea.classList.remove('hidden');
+            progressBar.style.width = '100%';
+            progressText.textContent = isCompletedSubmission ? 'Questionário Concluído (Resposta Anterior Carregada)!' : 'Questionário Concluído!';
+
+            messageArea.innerHTML = `
+                <svg class="h-10 w-10 mx-auto mb-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <p class="text-xl">Obrigado por sua participação!</p>
+                <p class="text-sm font-normal mt-1 mb-4">Sua resposta foi salva com sucesso.</p>
+                <button onclick="resetForm()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-md">
+                    Começar Novo Questionário
+                </button>
+            `;
+        }
+        
+        // NOVO: Função para resetar o formulário
+        window.resetForm = function() {
+            // Limpa o estado
+            userInfo = { name: '', age: '' };
+            responses = {};
+            currentQuestionIndex = 0;
+            
+            // Atualiza a interface
+            messageArea.classList.add('hidden');
+            questionArea.classList.remove('hidden');
+            document.getElementById('navigation-buttons').classList.remove('hidden');
+            
+            // Começa do início
+            renderQuestion(); 
+        }
 
         // 1. Inicialização e Autenticação do Firebase
         function setupFirebase() {
@@ -312,7 +350,7 @@
                         userIdDisplay.textContent = currentUserId;
                         console.log("Usuário autenticado:", currentUserId);
                         
-                        // NOVO: Tenta carregar as respostas anteriores
+                        // NOVO: Apenas checa se alguma submissão anterior foi completada (para decidir se mostra tela de sucesso)
                         await loadPreviousResponses(); 
                         
                         // Inicia o questionário após a autenticação e carregamento de dados
@@ -334,72 +372,40 @@
             }
         }
         
-        // NOVO: Função para carregar as respostas do usuário atual
+        // Função para carregar as respostas do usuário atual (Simplificada para apenas verificar submissão completa)
         async function loadPreviousResponses() {
             if (!db || !currentUserId) return;
 
             const collectionPath = `artifacts/${appId}/public/data/mobility_survey`;
-            const docRef = doc(db, collectionPath, currentUserId);
+            const responsesRef = collection(db, collectionPath);
             
             try {
+                // Busca qualquer documento associado ao usuário
+                // ATENÇÃO: Se houvesse lógica de 'resumo' de formulário incompleto, aqui usaríamos uma query com 'where'
+                // Para simplificar, vamos assumir que se o usuário tem qualquer submissão, ele deve começar do zero.
+                // Esta parte é mantida apenas para a lógica de "se ele acabou de submeter, mostre a tela de sucesso"
+
+                const docRef = doc(db, collectionPath, currentUserId); // Busca o documento que existia antes da mudança
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
                     const savedData = docSnap.data();
                     
-                    // 1. Carrega informações básicas
-                    userInfo.name = savedData.name || '';
-                    userInfo.age = savedData.age ? String(savedData.age) : ''; 
-                    
-                    // 2. Tenta reconstruir o objeto 'responses'
-                    const savedResponses = savedData.responses || {};
-                    let maxQuestionIndex = 0; // Para saber em qual pergunta o usuário parou
-                    
-                    // Mapeamento inverso para reconstruir responses[q.id]
-                    questionnaire.forEach(qData => {
-                        const questionKey = qData.text.replace(/(\d+\.)\s*(.*)/, 'Q$1 $2').trim();
-                        const answerStringOrArray = savedResponses[questionKey];
-                        
-                        if (answerStringOrArray) {
-                            maxQuestionIndex = Math.max(maxQuestionIndex, qData.id);
-                            
-                            let answer = answerStringOrArray;
-                            let otherText = '';
-
-                            if (qData.type === 'checkbox' && Array.isArray(answer)) {
-                                // Trata Q1 (com "Outro: texto")
-                                const otherItem = answer.find(a => a.startsWith('Outro:'));
-                                if (otherItem) {
-                                    otherText = otherItem.replace('Outro:', '').trim();
-                                    answer = answer.map(a => a === otherItem ? 'Outro:' : a); // Armazena apenas 'Outro:'
-                                }
-                            } else if (qData.id === 14 && typeof answer === 'string' && answer.includes('| DETALHE:')) {
-                                // Trata Q14 (radio_text)
-                                [answer, otherText] = answer.split('| DETALHE:').map(s => s.trim());
-                            }
-                            
-                            responses[qData.id] = { answer, otherText };
-                        }
-                    });
-                    
-                    // 3. Define o index atual (avança para a próxima pergunta se todas as anteriores estiverem respondidas)
-                    currentQuestionIndex = maxQuestionIndex < questionnaire.length - 1 ? maxQuestionIndex : questionnaire.length - 1;
-                    
-                    console.log(`Respostas anteriores carregadas. Retornando ao passo: ${currentQuestionIndex + 1}`);
-
-                    // Se a última pergunta foi respondida, move para a tela final.
-                    if (maxQuestionIndex === questionnaire.length - 1) {
-                         document.getElementById('navigation-buttons').classList.add('hidden');
-                         questionArea.classList.add('hidden');
-                         progressBar.style.width = '100%';
-                         progressText.textContent = 'Questionário Concluído!';
-                         messageArea.classList.remove('hidden');
+                    // Se o documento antigo (de setDoc) ainda existe e é completo, vamos forçar a tela de sucesso, 
+                    // mas limpamos o estado para que o próximo envio seja novo.
+                    if (Object.keys(savedData.responses || {}).length === questionnaire.length - 1) {
+                         // Carrega info pessoal, mas limpa as respostas para o próximo envio.
+                         userInfo.name = savedData.name || '';
+                         userInfo.age = savedData.age ? String(savedData.age) : ''; 
+                         responses = {}; 
+                         showSuccessScreen(true);
+                         return;
                     }
-
                 }
+
             } catch (error) {
-                console.error("Erro ao carregar respostas anteriores:", error);
-                // Não mostra erro para o usuário, apenas inicia do zero.
+                console.error("Erro ao verificar respostas anteriores:", error);
+                // Inicia do zero.
             }
         }
 
@@ -796,15 +802,11 @@
             const collectionPath = `artifacts/${appId}/public/data/mobility_survey`;
 
             try {
-                // Cria um documento com o ID do usuário
-                await setDoc(doc(db, collectionPath, currentUserId), submissionData);
+                // FIX CRUCIAL: Usa addDoc para criar um novo documento com ID único a cada submissão.
+                await addDoc(collection(db, collectionPath), submissionData);
 
-                // Exibe a mensagem de sucesso
-                document.getElementById('navigation-buttons').classList.add('hidden');
-                questionArea.classList.add('hidden');
-                progressBar.style.width = '100%';
-                progressText.textContent = 'Questionário Concluído!';
-                messageArea.classList.remove('hidden');
+                // Exibe a mensagem de sucesso com botão de reset
+                showSuccessScreen(false);
 
             } catch (error) {
                 console.error("Erro ao salvar no Firestore:", error);
@@ -937,7 +939,7 @@
         window.onload = setupFirebase;
         
         // Expõe funções para o escopo global
-        window.loadPreviousResponses = loadPreviousResponses; // Expondo a nova função
+        window.loadPreviousResponses = loadPreviousResponses; 
         window.renderUserInfoStep = renderUserInfoStep; 
         window.nextQuestion = nextQuestion;
         window.prevQuestion = prevQuestion;
@@ -950,6 +952,8 @@
         window.toggleAdminReportModal = toggleAdminReportModal; 
         window.generatePdfReport = generatePdfReport;
         window.handleUserInfoUpdate = handleUserInfoUpdate;
+        window.showSuccessScreen = showSuccessScreen; 
+        window.resetForm = resetForm; 
 
     </script>
 </body>
