@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesquisa de Mobilidade e Qualidade Urbana</title>
+    <title>Pesquisa de Mobilidade e Qualidade Urbana - Rio Vermelho/Amaralina</title>
     <!-- Carrega o Tailwind CSS para estilização -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -49,7 +49,7 @@
 <body class="min-h-screen flex flex-col">
     <!-- Header com título e botão de admin -->
     <header class="w-full bg-blue-600 text-white p-4 flex justify-between items-center">
-        <h1 class="text-xl font-bold">Pesquisa de Mobilidade Urbana</h1>
+        <h1 class="text-xl font-bold">Pesquisa de Mobilidade e Qualidade Urbana - Rio Vermelho/Amaralina</h1>
         <button onclick="showPasswordPrompt()" class="text-white hover:text-blue-200 transition duration-150 p-2 rounded-full hover:bg-blue-500" aria-label="Administração e Exportação">
             <!-- Gear Icon (SVG) -->
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -216,24 +216,151 @@
         const questionnaire = [
             // id: 0 é o passo de informações pessoais
             { id: 0, type: 'info', text: 'Informações Pessoais', options: [] }, 
-            { id: 1, type: 'checkbox', text: '1. Quais são os principais meios de transporte utilizados por você no dia a dia? (Selecione todos que se aplicam)', options: ['Ônibus / BRT', 'Carro particular', 'Moto', 'Aplicativo de Transporte (Uber, 99, Táxi)', 'A pé (caminhada)', 'Bicicleta / Patinete'], hasOther: true },
-            { id: 2, type: 'radio', text: '2. Como o trânsito nos horários de pico (principalmente nas vias de acesso à orla) afeta sua rotina e tempo de deslocamento?', options: ['Alto Impacto: Afeta drasticamente, gerando atrasos frequentes e estresse significativo.', 'Médio Impacto: Gera atrasos perceptíveis, mas é gerenciável na maioria dos dias.', 'Baixo Impacto: Quase não afeta meu tempo de deslocamento ou rotina.', 'Não se Aplica: Não circulo nesses horários ou vias.'] },
-            { id: 3, type: 'radio', text: '3. A expansão de modais como o BRT até o Rio Vermelho (e áreas próximas) trouxe melhorias ou piorou a circulação/disponibilidade de outras linhas de ônibus em seu trajeto?', options: ['Trouxe melhorias significativas para a circulação geral e/ou disponibilidade de linhas.', 'Piorou a circulação e/ou a disponibilidade/fluxo de outras linhas de ônibus.', 'Não houve impacto perceptível na minha rotina de transporte.', 'Não utilizo o BRT nem as linhas afetadas.'] },
-            { id: 4, type: 'radio', text: '4. Qual a sua avaliação sobre o estado de conservação das calçadas, rampas e pisos táteis no seu entorno (miolo do bairro)?', options: ['Ótimo/Bom: Facilitam a locomoção de pessoas com deficiência, idosos e carrinhos de bebê.', 'Razoável: Apresentam problemas pontuais, mas a acessibilidade é mantida na maior parte.', 'Ruim: Dificultam a locomoção e a acessibilidade (muitos buracos, desníveis ou rampas ausentes).', 'Péssimo: Calçadas intransitáveis e/ou falta total de infraestrutura acessível.'] },
-            { id: 5, type: 'radio', text: '5. Existe iluminação e sinalização de trânsito adequadas para pedestres e ciclistas, especialmente à noite, nas áreas próximas à orla?', options: ['Sim, considero a iluminação e sinalização totalmente adequadas.', 'Parcialmente, há pontos escuros ou a sinalização para pedestres/ciclistas é precária.', 'Não, considero a iluminação e/ou sinalização inadequadas ou inexistentes à noite.'] },
-            { id: 6, type: 'radio', text: '6. Com que frequência você utiliza a orla (calçadão, praia etc.) para lazer, esporte ou acesso a serviços?', options: ['Diariamente', 'Semanalmente', 'Mensalmente', 'Raramente (Poucas vezes ao ano)', 'Nunca'] },
-            { id: 7, type: 'radio', text: '7. O acesso a pé (do miolo do bairro para a orla) é fácil e seguro?', options: ['Muito fácil e seguro (boa iluminação, calçadas conservadas e sensação de segurança).', 'Fácil, mas com pontos de insegurança ou dificuldade (ex: desníveis, trechos mal iluminados).', 'Difícil e inseguro (evito caminhar até lá).'] },
-            { id: 8, type: 'radio', text: '8. A revitalização da orla do Rio Vermelho melhorou a mobilidade e a acessibilidade para quem mora no bairro, ou apenas para visitantes?', options: ['Melhorou principalmente para os moradores do bairro.', 'Melhorou principalmente para os visitantes e turistas.', 'Melhorou para ambos (moradores e visitantes).', 'Não houve melhora significativa na mobilidade/acessibilidade para nenhum grupo.'] },
-            { id: 9, type: 'radio', text: '9. A proximidade da orla (e dos eventos que ocorrem lá) gera algum desafio de mobilidade ou segurança no seu cotidiano?', options: ['Sim, gera desafios frequentes (ex: dificuldade de estacionar/circular, ruído, insegurança).', 'Sim, mas apenas ocasionalmente, durante grandes eventos ou feriados.', 'Não, não gera desafios significantes em meu cotidiano.', 'Não tenho uma opinião formada sobre o assunto.'] },
-            { id: 10, type: 'radio', text: '10. Realiza um trajeto para outro bairro com frequência? E como avalia a eficiência do transporte que conecta os bairros?', options: ['Sim, viajo com frequência, e o transporte é eficiente.', 'Sim, viajo com frequência, mas o transporte é ineficiente e dificulta a conexão.', 'Não viajo com frequência, mas, quando preciso, acho o transporte eficiente.', 'Não viajo com frequência, e o transporte é ineficaz.'] },
-            { id: 11, type: 'checkbox', text: '11. Como faz uso da orla (lazer, rotina, trabalho etc.) e você a considera convidativa? (Selecione todos que se aplicam)', options: ['Utilizo para Lazer / Esporte (caminhada, corrida etc.)', 'Utilizo como parte da minha Rotina de deslocamento (acesso ao trabalho, serviços etc.)', 'Utilizo para Trabalho ou Negócios (vendas, serviços etc.)', 'A orla é muito convidativa e atrativa.', 'A orla não é convidativa (por questões de segurança, limpeza ou infraestrutura).'], hasOther: false },
-            { id: 12, type: 'radio', text: '12. De forma geral, como você avalia a mobilidade urbana no bairro (incluindo transporte público, circulação de veículos e facilidade para pedestres)?', options: ['Excelente', 'Boa', 'Regular (funciona, mas tem muitos pontos a melhorar)', 'Ruim', 'Péssima'] },
-            { id: 13, type: 'radio', text: '13. Você acha que as ruas e calçadas do bairro (não apenas na orla) são adequadas para idosos, crianças e Pessoas com Deficiência (PCDs) circularem?', options: ['Sim, são totalmente adequadas e seguras.', 'Parcialmente adequadas, mas há barreiras e riscos em muitos pontos.', 'Não são adequadas, sendo um desafio para a circulação desses grupos.'] },
-            { id: 14, type: 'radio_text', text: '14. Crítica à Revitalização da Orla. Acha que a revitalização da orla deveria ter feito alguma outra mudança que não foi realizada? Ou fez alguma mudança que não precisava ter sido feita?', options: ['Sim, deveria ter feito mudanças adicionais. (Quais?', 'Não, o que foi feito foi adequado e suficiente.', 'Sim, fez mudanças que não eram necessárias ou foram prejudiciais. (Quais?', 'Não tenho opinião formada.'], hasTextInputFor: [0, 2] } // Índices 0 e 2 requerem input de texto
+            
+            // PARTE A: Filtro Inicial (1/10) - (ID 1)
+            { 
+                id: 1, 
+                type: 'radio', 
+                text: 'A.1. Você mora no bairro ou é visitante? (1/10) (Assinale apenas uma opção. As respostas guiarão as próximas seções.)', 
+                options: [
+                    'Morador: Eu moro no bairro.', 
+                    'Visitante: Eu não moro no bairro (visito com frequência ou esporadicamente).'
+                ],
+                tag: 'Filtro'
+            },
+            
+            // PARTE B: Perguntas Gerais (6/10) - (ID 2 a 7)
+            // B.1. Meios de Transporte (2/10)
+            { 
+                id: 2, 
+                type: 'checkbox', 
+                text: 'B.1. Quais são os principais meios de transporte utilizados por você no dia a dia (em qualquer lugar)? (2/10 - Assinale todos que se aplicam)', 
+                options: [
+                    'Ônibus / BRT', 
+                    'Carro particular', 
+                    'Moto', 
+                    'Aplicativo de Transporte (Uber, 99, Táxi)', 
+                    'A pé (caminhada)', 
+                    'Bicicleta / Patinete',
+                    'Outro:'
+                ], 
+                hasOther: true, 
+                tag: 'Geral'
+            },
+            // B.2. Avaliação Calçadas (3/10)
+            { 
+                id: 3, 
+                type: 'radio', 
+                text: 'B.2. Qual a sua avaliação sobre o estado de conservação das calçadas, rampas e pisos táteis no seu entorno (orla e comércio)? (3/10 - Avalie se elas facilitam a locomoção de PCDs, idosos ou carrinhos de bebê)', 
+                options: [
+                    'Ótimo: Facilitam a locomoção de todos.', 
+                    'Razoável: Apresentam problemas pontuais, mas a acessibilidade é mantida.', 
+                    'Ruim: Dificultam a locomoção e a acessibilidade em muitos pontos.', 
+                    'Péssimo: Calçadas intransitáveis e/ou falta de infraestrutura.'
+                ], 
+                tag: 'Geral'
+            },
+            // B.3. Transporte Público (4/10)
+            { 
+                id: 4, 
+                type: 'radio', 
+                text: 'B.3. Quais modais de transporte público você utiliza para chegar e sair do Rio Vermelho/Amaralina, e você considera o serviço frequente e confiável? (4/10 - Indique o modal e avalie a qualidade)', 
+                options: [
+                    'Ônibus / BRT: Serviço frequente e confiável.', 
+                    'Ônibus / BRT: Serviço utilizado, mas é infrequente ou pouco confiável.', 
+                    'Metrô (com integração): Serviço frequente e confiável.', 
+                    'Metrô (com integração): Serviço utilizado, mas é infrequente ou pouco confiável.', 
+                    'Não utilizo transporte público.'
+                ], 
+                tag: 'Geral'
+            },
+            // B.4. Acessibilidade Estabelecimentos (5/10)
+            { 
+                id: 5, 
+                type: 'radio', 
+                text: 'B.4. Você considera que o comércio, restaurantes e locais de lazer da orla e do entorno possuem acessibilidade adequada (banheiros adaptados, rampas de acesso) para todos os públicos? (5/10 - Acessibilidade em Estabelecimentos)', 
+                options: [
+                    'Sim, a acessibilidade é geralmente adequada.', 
+                    'Parcialmente, a maioria dos locais ainda apresenta dificuldades.', 
+                    'Não, a acessibilidade é precária ou inexistente na maioria dos estabelecimentos.', 
+                    'Não sei / Não observei.'
+                ], 
+                tag: 'Geral'
+            },
+            // B.5. Revitalização (6/10)
+            { 
+                id: 6, 
+                type: 'radio_text', 
+                text: 'B.5. Você acha que a revitalização trouxe melhorias para o bairro (acessibilidade, mobilidade e outros fatores)? E acha que poderia ter sido feita alguma mudança diferente? (6/10 - Revitalização e Sugestões)', 
+                options: [
+                    'Sim, a revitalização trouxe melhorias significativas e foi suficiente.', // Index 0 (No text input)
+                    'Trouxe melhorias, mas senti falta de alguma mudança.', // Index 1 (Text input needed)
+                    'Não trouxe melhorias significativas e/ou alguma mudança foi desnecessária.', // Index 2 (Text input needed)
+                    'Não tenho opinião formada / Não sei dizer.'
+                ], 
+                hasTextInputFor: [1, 2], // Opções que precisam de input de texto
+                tag: 'Geral'
+            },
+            // B.6. Uso e Avaliação Geral (7/10)
+            { 
+                id: 7, 
+                type: 'radio', 
+                text: 'B.6. Como você utiliza a orla (lazer, rotina, trabalho), você a considera convidativa, e qual sua avaliação geral sobre o bairro (Rio Vermelho/Amaralina)? (7/10 - Uso, Convivência e Avaliação Geral)', 
+                options: [
+                    'Uso a orla (Lazer/Rotina/Trabalho) e a considero muito convidativa. Avalio o bairro como Excelente/Bom.', 
+                    'Uso a orla, mas a considero razoável/não convidativa (segurança/limpeza). Avalio o bairro como Regular.', 
+                    'Não uso a orla e avalio o bairro como Ruim/Péssimo.', 
+                    'Uso apenas para deslocamento e não tenho opinião formada.'
+                ], 
+                tag: 'Geral'
+            },
+            
+            // PARTE C: Perguntas Específicas para MORADORES (2/10) - (ID 8 a 9)
+            // C.1. Impacto do BRT/Ônibus (8/10)
+            { 
+                id: 8, 
+                type: 'radio', 
+                text: 'C.1. A expansão de modais como o BRT até o Rio Vermelho (e áreas próximas) trouxe melhorias ou piorou a circulação/disponibilidade de outras linhas de ônibus em seu trajeto? (8/10 - Impacto do BRT/Ônibus)', 
+                options: [
+                    'Trouxe melhorias significativas para a circulação geral e/ou disponibilidade de linhas.', 
+                    'Piorou a circulação e/ou a disponibilidade/fluxo de outras linhas de ônibus.', 
+                    'Não houve impacto perceptível na minha rotina de transporte.', 
+                    'Não utilizo o BRT nem as linhas afetadas.'
+                ], 
+                tag: 'Morador'
+            },
+            // C.2. Frequência e Acesso a Pé (9/10)
+            { 
+                id: 9, 
+                type: 'radio', 
+                text: 'C.2. Com que frequência você utiliza a orla para lazer, esporte ou acesso a serviços? O acesso a pé (do miolo do bairro para a orla) é fácil e seguro? (9/10 - Frequência e Acesso a Pé)', 
+                options: [
+                    'Uso a orla Diariamente/Semanalmente e o acesso a pé é fácil e seguro.', 
+                    'Uso a orla Mensalmente/Raramente e o acesso a pé é fácil, mas com pontos de insegurança.', 
+                    'Uso a orla raramente e considero o acesso a pé difícil e inseguro (evito caminhar).', 
+                    'Nunca utilizo a orla.'
+                ], 
+                tag: 'Morador'
+            },
+            
+            // PARTE D: Perguntas Específicas para VISITANTES (1/10) - (ID 10)
+            // D.1. Integração Intermodais (10/10)
+            { 
+                id: 10, 
+                type: 'radio', 
+                text: 'D.1. Para quem vem de outras regiões da cidade, a integração entre os diferentes modais (Metrô, BRT, Ônibus) facilita ou dificulta o acesso aos bairros (Rio Vermelho/Amaralina)? (10/10 - Integração Intermodais)', 
+                options: [
+                    'Facilita muito o acesso, a integração é eficiente.', 
+                    'Não facilita nem dificulta (acesso neutro).', 
+                    'Dificulta o acesso, a integração é complexa ou mal sinalizada.', 
+                    'Não utilizo transporte público para chegar ao bairro.'
+                ], 
+                tag: 'Visitante'
+            }
         ];
 
         let currentQuestionIndex = 0; 
-        let responses = {}; // Respostas mapeadas pelo ID da Pergunta (1 a 14)
+        let responses = {}; // Respostas mapeadas pelo ID da Pergunta (1 a 10)
 
         // Referências DOM
         const questionArea = document.getElementById('question-area');
@@ -270,7 +397,7 @@
             questionArea.classList.add('hidden');
             messageArea.classList.remove('hidden');
             progressBar.style.width = '100%';
-            progressText.textContent = isCompletedSubmission ? 'Questionário Concluído (Resposta Anterior Carregada)!' : 'Questionário Concluído!';
+            progressText.textContent = 'Questionário Concluído (10/10)!';
 
             messageArea.innerHTML = `
                 <svg class="h-10 w-10 mx-auto mb-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -377,44 +504,19 @@
             if (!db || !currentUserId) return;
 
             const collectionPath = `artifacts/${appId}/public/data/mobility_survey`;
-            const responsesRef = collection(db, collectionPath);
-            
-            try {
-                // Busca qualquer documento associado ao usuário
-                // ATENÇÃO: Se houvesse lógica de 'resumo' de formulário incompleto, aqui usaríamos uma query com 'where'
-                // Para simplificar, vamos assumir que se o usuário tem qualquer submissão, ele deve começar do zero.
-                // Esta parte é mantida apenas para a lógica de "se ele acabou de submeter, mostre a tela de sucesso"
-
-                const docRef = doc(db, collectionPath, currentUserId); // Busca o documento que existia antes da mudança
-                const docSnap = await getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    const savedData = docSnap.data();
-                    
-                    // Se o documento antigo (de setDoc) ainda existe e é completo, vamos forçar a tela de sucesso, 
-                    // mas limpamos o estado para que o próximo envio seja novo.
-                    if (Object.keys(savedData.responses || {}).length === questionnaire.length - 1) {
-                         // Carrega info pessoal, mas limpa as respostas para o próximo envio.
-                         userInfo.name = savedData.name || '';
-                         userInfo.age = savedData.age ? String(savedData.age) : ''; 
-                         responses = {}; 
-                         showSuccessScreen(true);
-                         return;
-                    }
-                }
-
-            } catch (error) {
-                console.error("Erro ao verificar respostas anteriores:", error);
-                // Inicia do zero.
-            }
+            // Não usaremos getDoc(doc(db, collectionPath, currentUserId)) porque agora usamos addDoc.
+            // Apenas para fins de demonstração, podemos assumir que se o usuário recarregar, ele começa um novo.
+            // Para evitar a lógica complexa de buscar todas as respostas e verificar se a última foi completa, 
+            // vamos apenas forçar o início de um novo formulário (resetForm) para evitar confusão de estado.
         }
 
 
         // NOVO: Renderiza a tela de informações do usuário (Nome e Idade)
         window.renderUserInfoStep = function() {
-            const totalSteps = questionnaire.length;
+            // Conta apenas as perguntas (10)
+            const totalQuestions = questionnaire.length - 1; 
             progressBar.style.width = '0%';
-            progressText.textContent = `Passo 1 de ${totalSteps}`;
+            progressText.textContent = `Passo 0 de ${totalQuestions} (Informações Pessoais)`;
 
             questionArea.innerHTML = `
                 <h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">Início da Pesquisa</h2>
@@ -447,6 +549,7 @@
                 </div>
             `;
             prevBtn.disabled = true; 
+            nextBtn.textContent = 'Começar Questionário';
             updateNextButtonState();
         }
 
@@ -515,17 +618,29 @@
             const savedResponse = responses[q.id] || { answer: q.type.includes('checkbox') ? [] : '', otherText: '' };
 
             // Atualiza o progresso
-            const totalSteps = questionnaire.length;
-            const currentStep = currentQuestionIndex;
-            const progress = (currentStep / (totalSteps -1)) * 100; // Total Steps - 1 para Q0 (info)
+            const totalQuestions = questionnaire.length - 1; // 10 perguntas + 1 passo info
+            const currentStep = q.id;
+            const progress = ((currentStep) / totalQuestions) * 100;
             progressBar.style.width = `${progress}%`;
-            progressText.textContent = `Pergunta ${currentStep} de ${totalSteps - 1}`; // Ajustado o texto
+            progressText.textContent = `Pergunta ${currentStep} de ${totalQuestions}`;
 
             // Conteúdo da Pergunta
             let htmlContent = `
                 <h2 class="text-xl font-semibold text-gray-700 mb-6">${q.text}</h2>
                 <div class="space-y-4">
             `;
+            
+            // Lógica de texto para B.5 (ID 6)
+            const isQ6 = q.id === 6;
+            let showQ6Text = false;
+            if (isQ6 && savedResponse.answer) {
+                 const optionIndex = q.options.findIndex(opt => opt === savedResponse.answer);
+                 showQ6Text = q.hasTextInputFor.includes(optionIndex);
+            }
+            
+            // Lógica de texto para B.1 (ID 2)
+            const showQ2Other = q.id === 2 && savedResponse.answer.includes('Outro:');
+
 
             q.options.forEach((option, index) => {
                 const inputType = q.type.includes('checkbox') ? 'checkbox' : 'radio';
@@ -539,6 +654,13 @@
                     isChecked = savedResponse.answer.includes(option);
                 }
 
+                // Ajusta o label para as perguntas com "(Qual?..."
+                let labelText = option;
+                if (isQ6 && (index === 1 || index === 2)) {
+                    labelText = labelText.replace(/(\(\s*Qual\?\s*\))/, ' (Detalhar abaixo)');
+                }
+
+
                 htmlContent += `
                     <div class="answer-option border border-gray-300 rounded-lg p-3 sm:p-4 hover:bg-gray-50 flex items-start">
                         <input 
@@ -551,23 +673,17 @@
                             class="mt-1 h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500"
                             onchange="handleSelection(event)"
                         >
-                        <label for="${inputId}" class="ml-3 text-sm sm:text-base text-gray-700 w-full cursor-pointer">${option}</label>
+                        <label for="${inputId}" class="ml-3 text-sm sm:text-base text-gray-700 w-full cursor-pointer">${labelText}</label>
                     </div>
                 `;
             });
 
-            // Lógica de campos de texto (Q1 e Q14)
-            const showQ1Other = q.id === 1 && savedResponse.answer.includes('Outro:');
-            const showQ14Text = q.id === 14 && q.hasTextInputFor.includes(q.options.findIndex(opt => opt === savedResponse.answer));
-
-
-            // Campo "Outro" para Q1
-            if (q.id === 1 && q.hasOther) {
-                 // A opção "Outro" já está na lista, mas precisamos do campo de texto
-                 // Se o campo Outro foi selecionado ou se já havia texto salvo, mostra o campo.
+            // Campo "Outro" para B.1 (ID 2)
+            if (q.id === 2 && q.hasOther) {
+                 // A opção "Outro:" já está na lista, mas precisamos do campo de texto
                 htmlContent += `
-                    <div id="text-input-q1-other" class="p-3 sm:p-4 border ${showQ1Other ? 'border-blue-300 bg-blue-50' : 'border-gray-200 bg-gray-50'} rounded-lg transition-all duration-300">
-                        <label for="q${q.id}-other" class="text-sm font-medium text-gray-700 block mb-2">Especifique o "Outro":</label>
+                    <div id="text-input-q2-other" class="p-3 sm:p-4 border ${showQ2Other ? 'border-blue-300 bg-blue-50' : 'border-gray-200 bg-gray-50'} rounded-lg transition-all duration-300">
+                        <label for="q${q.id}-other" class="text-sm font-medium text-gray-700 block mb-2">Especifique o "Outro" modal de transporte:</label>
                         <input 
                             type="text" 
                             id="q${q.id}-other" 
@@ -580,14 +696,13 @@
                 `;
             }
             
-            // Campo de texto para Q14
-            if (q.id === 14 && q.hasTextInputFor) {
-                if (showQ14Text) {
+            // Campo de texto para B.5 (ID 6)
+            if (isQ6 && showQ6Text) {
                     htmlContent += `
-                        <div id="text-input-q14" class="mt-4 p-3 sm:p-4 border border-blue-300 rounded-lg bg-blue-50 transition-all duration-300">
-                            <label for="q14-text" class="text-sm font-medium text-blue-700 block mb-2">Detalhe sua crítica:</label>
+                        <div id="text-input-q6" class="mt-4 p-3 sm:p-4 border border-blue-300 rounded-lg bg-blue-50 transition-all duration-300">
+                            <label for="q6-text" class="text-sm font-medium text-blue-700 block mb-2">Detalhe sua sugestão ou crítica (Qual?):</label>
                             <textarea 
-                                id="q14-text" 
+                                id="q6-text" 
                                 rows="3" 
                                 placeholder="Explique as mudanças adicionais ou desnecessárias..."
                                 oninput="handleOtherText(event)"
@@ -595,7 +710,6 @@
                             >${savedResponse.otherText || ''}</textarea>
                         </div>
                     `;
-                }
             }
 
 
@@ -604,6 +718,21 @@
 
             // Atualiza botões
             prevBtn.disabled = currentQuestionIndex === 0;
+            
+            // Se for a última pergunta do fluxo atual, muda o texto do botão
+            const filterResponse = responses[1]?.answer;
+            const isMorador = filterResponse === 'Morador: Eu moro no bairro.';
+            const isLastQuestionMorador = currentQuestionIndex === 9 && isMorador;
+            const isLastQuestionVisitante = currentQuestionIndex === 10 && !isMorador && filterResponse;
+
+            if (currentQuestionIndex === 0) {
+                 nextBtn.textContent = 'Começar Questionário';
+            } else if (isLastQuestionMorador || isLastQuestionVisitante) {
+                nextBtn.textContent = 'Enviar Respostas (Fim)';
+            } else {
+                 nextBtn.textContent = 'Próxima Pergunta';
+            }
+            
             updateNextButtonState();
         }
 
@@ -630,14 +759,14 @@
 
                     // Validação de campos de texto obrigatórios
                     if (isValid) {
-                        // Q1 - Se "Outro:" estiver selecionado, o texto deve estar preenchido
-                        if (q.id === 1 && response.answer.includes('Outro:') && !response.otherText.trim()) {
+                        // B.1 (ID 2) - Se "Outro:" estiver selecionado, o texto deve estar preenchido
+                        if (q.id === 2 && response.answer.includes('Outro:') && !response.otherText.trim()) {
                             isValid = false;
                         }
-                        // Q14 - Se uma opção que requer texto for selecionada, o texto deve estar preenchido
-                        if (q.id === 14 && q.hasTextInputFor && response.answer) {
-                            const q14Options = q.options;
-                            const optionIndex = q14Options.findIndex(opt => opt === response.answer);
+                        // B.5 (ID 6) - Se uma opção que requer texto for selecionada, o texto deve estar preenchido
+                        if (q.id === 6 && q.hasTextInputFor && response.answer) {
+                            const q6Options = q.options;
+                            const optionIndex = q6Options.findIndex(opt => opt === response.answer);
                             if (q.hasTextInputFor.includes(optionIndex) && !response.otherText.trim()) {
                                 isValid = false;
                             }
@@ -647,7 +776,6 @@
             }
 
             nextBtn.disabled = !isValid;
-            nextBtn.textContent = currentQuestionIndex === totalQuestions - 1 ? 'Enviar Respostas' : 'Próxima Pergunta';
         }
 
         // 5. Manipulação de Seleção (Radio/Checkbox)
@@ -663,14 +791,13 @@
             if (q.type === 'radio' || q.type === 'radio_text') {
                 currentResponse.answer = optionValue;
                 
-                // Lógica de campo de texto para Q14
-                if (q.id === 14) {
+                // Lógica de campo de texto para B.5 (ID 6)
+                if (q.id === 6) {
                     const optionIndex = q.options.findIndex(opt => opt === optionValue);
-                    // Se a nova seleção exige texto, re-renderiza para mostrar o textarea (mantendo otherText)
-                    // Se a nova seleção não exige texto, garante que o campo seja limpo no armazenamento, mas
-                    // o renderQuestion() cuidará de limpar o HTML.
-                    if (q.hasTextInputFor.includes(optionIndex)) {
-                        // Força re-render para mostrar o textarea
+                    const requiresText = q.hasTextInputFor.includes(optionIndex);
+
+                    if (requiresText) {
+                        // Força re-render para mostrar o textarea (mantendo otherText)
                         setTimeout(renderQuestion, 0); 
                     } else {
                         // Se mudou para uma opção que não precisa de texto, limpa o texto adicional.
@@ -701,7 +828,7 @@
             updateNextButtonState();
         }
 
-        // 6. Manipulação de Texto Adicional (Q1 e Q14)
+        // 6. Manipulação de Texto Adicional (B.1 e B.5)
         window.handleOtherText = function(event) {
             const q = questionnaire[currentQuestionIndex];
             
@@ -711,14 +838,11 @@
             
             currentResponse.otherText = event.target.value;
             
-            // Lógica específica para Q1 (checkbox): Garante que a opção "Outro:" esteja marcada se o usuário começar a digitar.
-            if (q.id === 1 && currentResponse.otherText.trim() && !currentResponse.answer.includes('Outro:')) {
+            // Lógica específica para B.1 (ID 2 / checkbox): Garante que a opção "Outro:" esteja marcada se o usuário começar a digitar.
+            if (q.id === 2 && currentResponse.otherText.trim() && !currentResponse.answer.includes('Outro:')) {
                 currentResponse.answer.push('Outro:');
-                const otherCheckbox = document.getElementById(`q${q.id}-opt-other`);
-                if (otherCheckbox) otherCheckbox.checked = true;
-            } else if (q.id === 1 && !currentResponse.otherText.trim() && currentResponse.answer.includes('Outro:')) {
-                 // Lógica opcional: se limpou o texto, desmarca o checkbox (melhor deixar marcado e exigir preenchimento)
-            }
+                // Não precisa de re-render, a validação exige que a resposta esteja lá
+            } 
             
             responses[q.id] = currentResponse;
             updateNextButtonState();
@@ -728,18 +852,52 @@
         // 7. Navegação
         window.nextQuestion = function() {
             if (!nextBtn.disabled) {
-                if (currentQuestionIndex < questionnaire.length - 1) {
-                    currentQuestionIndex++;
+                let nextIndex = currentQuestionIndex + 1;
+                const totalSteps = questionnaire.length;
+                
+                // --- Lógica de Ramificação (Jumps) ---
+                if (currentQuestionIndex === 7) { // Após B.6 (ID 7)
+                    const filterResponse = responses[1]?.answer;
+                    const isMorador = filterResponse === 'Morador: Eu moro no bairro.';
+                    
+                    if (isMorador) {
+                        nextIndex = 8; // Jump para C.1
+                    } else if (filterResponse) {
+                        nextIndex = 10; // Jump para D.1 (ID 10), pulando C.1 e C.2
+                    }
+                    // Se não houver filtro, nextIndex fica 8 (o que deve ser capturado pelo disabled button)
+                }
+                
+                // --- Verificação de Fim de Questionário ---
+                const filterResponse = responses[1]?.answer;
+                const isMorador = filterResponse === 'Morador: Eu moro no bairro.';
+                const endOfMoradorPath = currentQuestionIndex === 9 && isMorador;
+                const endOfVisitantePath = currentQuestionIndex === 10 && !isMorador && filterResponse;
+
+                if (endOfMoradorPath || endOfVisitantePath) {
+                    submitForm();
+                } else if (nextIndex < totalSteps) {
+                    currentQuestionIndex = nextIndex;
                     renderQuestion();
                 } else {
-                    submitForm(); // Última pergunta
+                     // Should only happen if totalSteps is wrong or logic failed, but call submit just in case
+                    submitForm(); 
                 }
             }
         }
 
         window.prevQuestion = function() {
             if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
+                let prevIndex = currentQuestionIndex - 1;
+                
+                // --- Lógica de Retorno (Reverse Jumps) ---
+                if (currentQuestionIndex === 10) { // Se voltando de D.1 (ID 10), volta para B.6 (ID 7)
+                    prevIndex = 7; 
+                }
+                // C.1 (ID 8) volta para B.6 (ID 7) que é correto (8-1=7)
+                // C.2 (ID 9) volta para C.1 (ID 8) que é correto (9-1=8)
+
+                currentQuestionIndex = prevIndex;
                 renderQuestion();
             }
         }
@@ -754,38 +912,67 @@
             nextBtn.disabled = true;
             nextBtn.textContent = 'Enviando...';
             
-            // 1. Processa e mapeia as respostas
+            // 1. Processa e mapeia as respostas (Somente as perguntas respondidas no fluxo)
             const finalResponses = {};
-            for (let i = 1; i < questionnaire.length; i++) {
-                const qData = questionnaire[i];
-                const qId = qData.id;
-                const responseData = responses[qId];
+            const answeredQuestionIds = Object.keys(responses).map(Number).filter(id => id > 0); // Filtra Q0
 
-                if (!responseData) continue; 
+            // Determina as perguntas no fluxo do usuário
+            const filterResponse = responses[1]?.answer;
+            const isMorador = filterResponse === 'Morador: Eu moro no bairro.';
+            
+            // Itera sobre todas as perguntas e inclui apenas as do fluxo
+            questionnaire.forEach(qData => {
+                if (qData.id === 0) return; 
+
+                // Lógica de inclusão no relatório final
+                let shouldInclude = qData.id >= 1 && qData.id <= 7; // Perguntas A.1 a B.6
+                if (isMorador) {
+                    shouldInclude = shouldInclude || (qData.id >= 8 && qData.id <= 9); // Inclui C.1 e C.2
+                } else if (filterResponse) {
+                    shouldInclude = shouldInclude || (qData.id === 10); // Inclui D.1
+                }
                 
-                let answer = responseData.answer;
-                
-                // Q1 (checkbox com Outro)
-                if (qId === 1 && responseData.otherText.trim()) {
-                    let otherAnswer = `Outro: ${responseData.otherText.trim()}`;
-                    // Filtra o 'Outro:' sem detalhe (se estiver lá) e adiciona o detalhe
-                    answer = Array.isArray(answer) ? answer.filter(a => a !== 'Outro:') : [];
-                    if (!answer.includes(otherAnswer)) {
-                        answer.push(otherAnswer);
+                if (shouldInclude) {
+                    const responseData = responses[qData.id];
+
+                    if (!responseData) {
+                        finalResponses[`Q${qData.id}. ${qData.text.split('(')[0].trim()}`] = 'Não Respondido (Erro de Validação)';
+                        return;
+                    } 
+                    
+                    let answer = responseData.answer;
+                    
+                    // B.1 (ID 2 / checkbox com Outro)
+                    if (qData.id === 2) {
+                        let currentAnswers = Array.isArray(answer) ? [...answer] : [];
+                        if (responseData.otherText.trim()) {
+                            let otherAnswer = `Outro: ${responseData.otherText.trim()}`;
+                            currentAnswers = currentAnswers.filter(a => a !== 'Outro:'); // Remove o placeholder se houver
+                            if (!currentAnswers.includes(otherAnswer)) {
+                                currentAnswers.push(otherAnswer);
+                            }
+                        } else {
+                            // Remove 'Outro:' se o texto foi limpo
+                            currentAnswers = currentAnswers.filter(a => a !== 'Outro:');
+                        }
+                        answer = currentAnswers;
                     }
-                } else if (qId === 1) {
-                    // Remove 'Outro:' se não houver texto, caso o checkbox tenha sido marcado e depois o texto limpo
-                     answer = Array.isArray(answer) ? answer.filter(a => a !== 'Outro:') : [];
-                }
-                
-                // Q14 (radio_text)
-                if (qId === 14 && responseData.otherText.trim()) {
-                    answer = `${responseData.answer} | DETALHE: ${responseData.otherText.trim()}`;
-                }
+                    
+                    // B.5 (ID 6 / radio_text)
+                    if (qData.id === 6 && responseData.otherText.trim()) {
+                        answer = `${responseData.answer.split('(')[0].trim()} | DETALHE: ${responseData.otherText.trim()}`;
+                    } else if (qData.id === 6) {
+                        answer = responseData.answer.split('(')[0].trim();
+                    }
 
-                // Chave da resposta limpa (Ex: "Q1. Quais são os principais...")
-                finalResponses[qData.text.replace(/(\d+\.)\s*(.*)/, 'Q$1 $2').trim()] = answer;
-            }
+                    // Formatação final da chave da resposta
+                    // Remove (X/10) e outros parênteses
+                    let keyText = qData.text.replace(/\s*\(.*?\)/g, '').trim(); 
+                    keyText = keyText.replace(/(\d+\.)\s*(.*)/, 'Q$1 $2').trim(); 
+
+                    finalResponses[keyText] = answer;
+                }
+            });
 
 
             const submissionData = {
@@ -802,7 +989,7 @@
             const collectionPath = `artifacts/${appId}/public/data/mobility_survey`;
 
             try {
-                // FIX CRUCIAL: Usa addDoc para criar um novo documento com ID único a cada submissão.
+                // Usa addDoc para criar um novo documento com ID único a cada submissão.
                 await addDoc(collection(db, collectionPath), submissionData);
 
                 // Exibe a mensagem de sucesso com botão de reset
@@ -816,7 +1003,7 @@
             }
         }
         
-        // --- FUNÇÕES DE ADMINISTRAÇÃO E EXPORTAÇÃO (ADAPTADAS) ---
+        // --- FUNÇÕES DE ADMINISTRAÇÃO E EXPORTAÇÃO (MANTIDAS) ---
         
         // loadSubmissions agora é chamado por openAdminPanel após a senha
         async function loadSubmissions() {
