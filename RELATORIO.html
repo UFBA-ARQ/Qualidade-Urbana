@@ -3,308 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório Segmentado e Global de Mobilidade Urbana</title>
+    <title>Relatório Consolidado: Rio Vermelho e Amaralina</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        /* Define a fonte Inter (padrão) */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f4f7f9;
+            background-color: #f7f9fb;
         }
+        /* Estilo para sombra e cantos arredondados nos cartões */
         .card {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            border-radius: 0.75rem; /* rounded-xl */
         }
     </style>
 </head>
-<body class="p-4 md:p-8">
-    <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-xl card">
-        <header class="mb-8 border-b pb-4">
-            <h1 class="text-3xl font-bold text-gray-800">Relatório de Mobilidade Urbana: Segmentado e Global</h1>
-            <p class="text-lg text-gray-500 mt-1">Análise de 20 respostas (10 Amaralina e 10 Rio Vermelho) em ordem sequencial. **Dados corrigidos.**</p>
+<body class="p-4 sm:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        
+        <!-- CABEÇALHO PRINCIPAL - CONSOLIDADO -->
+        <header class="text-center mb-12 py-4 bg-white card border-b-8 border-purple-500">
+            <h1 class="text-4xl font-extrabold text-purple-800 mb-2">Relatório Consolidado de Análise Bairros</h1>
+            <p class="text-xl text-gray-600">Rio Vermelho e Amaralina - Comparativo de Percepções</p>
         </header>
 
-        <!-- Seção 1: Amaralina (Antigo bloco 1) -->
-        <section id="amaralina" class="mb-12">
-            <h2 class="text-2xl font-bold text-green-600 mb-6 border-b-2 border-green-200 pb-2">1. Análise por Bairro: Amaralina (N=10)</h2>
-            <div class="space-y-6">
+        <!-- ============================================= -->
+        <!-- SEÇÃO 1: ANÁLISE DO RIO VERMELHO -->
+        <!-- ============================================= -->
 
-                <!-- A.Q1: Você mora no bairro ou é visitante? -->
-                <div class="bg-green-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-green-700 mb-3">A.Q1: Perfil do Participante</h3>
-                    <div class="flex justify-center w-full md:w-1/2 mx-auto">
-                        <canvas id="chartAM_AQ1"></canvas>
-                    </div>
-                    <p class="text-gray-700 mt-4">O perfil dos respondentes de Amaralina é ligeiramente inclinado para **Morador (60%)**, o que indica uma perspectiva de uso diário e aprofundada da infraestrutura.</p>
-                </div>
-
-                <!-- B.Q1: Meios de Transporte no Dia a Dia -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">B.Q1: Principais Meios de Transporte</h3>
-                    <p class="text-gray-700">Os modais mais citados foram **Carro Particular (3)** e **Aplicativos de Transporte (3)**, seguidos por **Ônibus** e outros meios. Isso sugere que, mesmo entre moradores, o transporte individual prevalece para o deslocamento diário.</p>
-                </div>
-
-                <!-- B.Q2: Conservação de Calçadas e Rampas -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">B.Q2: Avaliação da Conservação de Calçadas</h3>
-                    <p class="text-gray-700">A avaliação é majoritariamente **Negativa (87.5%)**. As calçadas são descritas como de difícil locomoção, precárias, com problemas de infraestrutura e falta de manutenção em pontos específicos (exceto 1 resposta "Excelente").</p>
-                </div>
-
-                <!-- B.Q3: Modais de Transporte Público -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">B.Q3: Uso e Confiabilidade do Transporte Público</h3>
-                    <p class="text-gray-700">O **Ônibus** e seus **subtipos** são os mais usados. A confiabilidade é mista: 3 participantes consideram o serviço frequente/confiável, enquanto 2 classificam como raro, infrequente ou não confiável.</p>
-                </div>
-
-                <!-- B.Q4: Acessibilidade no Comércio -->
-                <div class="bg-green-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-green-700 mb-3">B.Q4: Acessibilidade de Comércio/Lazer</h3>
-                    <div class="flex justify-center w-full md:w-1/2 mx-auto">
-                        <canvas id="chartAM_BQ4"></canvas>
-                    </div>
-                    <p class="text-gray-700 mt-4">**100%** dos respondentes consideram a acessibilidade do comércio, restaurantes e locais de lazer como **Precária ou Inexistente**. Este é um ponto de falha unânime no bairro.</p>
-                </div>
-
-                <!-- B.Q5: Revitalização -->
-                <div class="bg-green-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-green-700 mb-3">B.Q5: Avaliação da Revitalização da Orla (N=7)</h3>
-                    <canvas id="chartAM_BQ5"></canvas>
-                    <p class="text-gray-700 mt-4">Embora a revitalização seja vista como Positiva, há uma forte crítica. A maioria (**57.1%**) aponta **Ressalvas** (falta de detalhes, segurança, manutenção) e houve a única resposta **Negativa (14.3%)** de toda a pesquisa neste bairro.</p>
-                </div>
-
-                <!-- B.Q6: Orla Convidativa e Avaliação Geral -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">B.Q6: Uso e Avaliação Geral do Bairro</h3>
-                    <p class="text-gray-700">O bairro e a orla são bem avaliados por 60% dos que responderam essa questão ("Excelente/Ótima/Convidativa"). No entanto, 40% citam que a orla é "Ruim" ou o bairro é apenas "Regular", frequentemente citando problemas de segurança e manutenção.</p>
-                </div>
-
-                <!-- C.Q1: Impacto do BRT -->
-                <div class="bg-green-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-green-700 mb-3">C.Q1: BRT e a Circulação de Outras Linhas (N=6)</h3>
-                    <div class="flex justify-center w-full md:w-1/2 mx-auto">
-                        <canvas id="chartAM_CQ1"></canvas>
-                    </div>
-                    <p class="text-gray-700 mt-4">A expansão do BRT é percebida como prejudicial: **83.3%** afirmam que ela **piorou** a circulação e disponibilidade de outras linhas de ônibus no trajeto.</p>
-                </div>
-                
-                 <!-- C.Q2: Frequência de Uso da Orla -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">C.Q2: Frequência de Uso da Orla para Lazer/Esporte</h3>
-                    <p class="text-gray-700">A orla é utilizada **Diariamente** ou com frequência, e os respondentes a consideram de **fácil e seguro** acesso a pé.</p>
-                </div>
-
-                <!-- D.Q1: Integração entre Modais -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">D.Q1: Integração de Modais para Visitantes</h3>
-                    <p class="text-gray-700">A única resposta válida indica que a integração de modais **Dificulta** o acesso de quem vem de outras regiões da cidade ao bairro.</p>
-                </div>
-
+        <section class="mb-12 border-l-4 border-blue-500 pl-4">
+            <h2 class="text-3xl font-bold text-blue-700 mb-6">1. Rio Vermelho (9 Participantes)</h2>
+            
+            <!-- Resumo Executivo RV -->
+            <div class="card bg-white p-6 mb-8">
+                <h3 class="text-2xl font-semibold text-blue-600 mb-3">Resumo Executivo Rio Vermelho</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    A análise de 9 respostas (com idades entre 28 e 64 anos) revela que a maioria dos entrevistados (5/8) é visitante esporádico da região, e 2/8 são visitantes frequentes. O transporte público (ônibus) é considerado frequente e confiável pela grande maioria (7/8), exceto por um participante. 
+                    Embora a revitalização tenha sido percebida como uma melhoria pela maioria (6/8), há um sentimento de incompletude ou falta de "detalhes". O ponto mais crítico é a **Acessibilidade** em comércio e lazer, classificada como precária ou inexistente por 5 dos 6 participantes que responderam. A avaliação geral do bairro está dividida entre **Regular (4/7)** e **Excelente/Muito Convidativa (3/7)**.
+                </p>
             </div>
+
+            <!-- Gráficos Rio Vermelho -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card bg-white p-6">
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">A.Q1. Perfil dos Participantes (N=8)</h4>
+                    <canvas id="chartPerfilRV"></canvas>
+                    <p class="text-sm text-gray-500 mt-4">Nota: O total exclui um participante com resposta indefinida.</p>
+                </div>
+                <div class="card bg-white p-6">
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">B.Q5. Avaliação da Revitalização (N=8)</h4>
+                    <canvas id="chartRevitalizacaoRV"></canvas>
+                </div>
+                <div class="card bg-white p-6">
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">B.Q4. Acessibilidade (N=6)</h4>
+                    <canvas id="chartAcessibilidadeRV"></canvas>
+                    <p class="text-sm text-gray-500 mt-4">Nota: O total exclui 3 participantes com respostas indefinidas.</p>
+                </div>
+                <div class="card bg-white p-6">
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">B.Q6. Avaliação Geral do Bairro (N=7)</h4>
+                    <canvas id="chartAvaliacaoGeralRV"></canvas>
+                    <p class="text-sm text-gray-500 mt-4">Nota: O total exclui 2 participantes com respostas indefinidas/incompletas.</p>
+                </div>
+            </div>
+            
+             <!-- Detalhes Qualitativos RV -->
+            <div class="mt-8 card bg-white p-6">
+                <h4 class="text-xl font-semibold text-blue-600 mb-3">Detalhes Qualitativos Rio Vermelho</h4>
+                <div class="space-y-4 text-gray-700">
+                    <p>
+                        <span class="font-semibold text-blue-600">Conservação de Calçadas (B.Q2):</span> A percepção é majoritariamente negativa. As respostas indicam "má conservação", "pontos importantes" (problemas pontuais) e "infraestrutura" deficiente (Lourdes, Juscelino, Adriana). Apenas uma resposta sugere que as calçadas "apresentam problemas pontuais, aceitáveis".
+                    </p>
+                    <p>
+                        <span class="font-semibold text-blue-600">Impacto do BRT (C.Q1):</span> Os participantes que comentaram (Franklin, Adilson) indicaram que o BRT/expansão de modais trouxe **melhorias significativas**, com impacto geral positivo na circulação. Um participante, no entanto, mencionou "atrito" com as linhas existentes.
+                    </p>
+                    <p>
+                        <span class="font-semibold text-blue-600">Uso da Orla (B.Q6/C.Q2):</span> A orla é vista como "muito convidativa" (Adilson, Julio Cesar, Adriana), sendo utilizada para Lazer, Rotina e Trânsito. O acesso a pé é considerado fácil e seguro por quem o utiliza diariamente (Adilson).
+                    </p>
+                </div>
+            </div>
+
         </section>
 
-        <!-- Seção 2: Rio Vermelho (Antigo bloco 2) -->
-        <section id="rio-vermelho" class="mb-12">
-            <h2 class="text-2xl font-bold text-red-600 mb-6 border-b-2 border-red-200 pb-2">2. Análise por Bairro: Rio Vermelho (N=10)</h2>
-            <div class="space-y-6">
+        <!-- ============================================= -->
+        <!-- SEÇÃO 2: ANÁLISE DE AMARALINA -->
+        <!-- ============================================= -->
 
-                <!-- A.Q1: Você mora no bairro ou é visitante? -->
-                <div class="bg-red-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-red-700 mb-3">A.Q1: Perfil do Participante</h3>
-                    <div class="flex justify-center w-full md:w-1/2 mx-auto">
-                        <canvas id="chartRV_AQ1"></canvas>
-                    </div>
-                    <p class="text-gray-700 mt-4">O perfil dos respondentes do Rio Vermelho é predominantemente **Visitante (70%)** entre os respondentes, indicando que a experiência de uso é mais focada em lazer e acesso esporádico.</p>
-                </div>
+        <section class="mb-12 border-l-4 border-indigo-500 pl-4">
+            <h2 class="text-3xl font-bold text-indigo-700 mb-6">2. Amaralina (11 Participantes)</h2>
+            
+            <!-- Resumo Executivo AM -->
+            <div class="card bg-white p-6 mb-8">
+                <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Resumo Executivo Amaralina</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    A análise de 11 respostas (com idades entre 18 e 66 anos) revela uma divisão entre moradores (4/8) e visitantes (4/8). O ponto mais crítico é a **Acessibilidade** em comércio e lazer, onde **100%** dos participantes que responderam (N=10) a classificaram como precária, inexistente ou com dificuldades. A revitalização foi amplamente percebida como **incompleta** ou com "falta de detalhe" por **80%** (8/10) dos respondentes. A avaliação geral do bairro é positiva, mas dividida entre **Excelente/Convidativa (4/7)** e **Regular (3/7)**. Em relação ao BRT, a maioria (6/8) vê a expansão como uma **melhoria significativa** na circulação.
+                </p>
+            </div>
 
-                <!-- B.Q1: Meios de Transporte no Dia a Dia -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">B.Q1: Principais Meios de Transporte</h3>
-                    <p class="text-gray-700">Assim como em Amaralina, **Aplicativos de Transporte (3)** e **Carro Particular (2)** são os mais citados, demonstrando dependência do transporte individual.</p>
+            <!-- Gráficos Amaralina -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card bg-white p-6">
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">A.Q1. Perfil dos Participantes (N=8)</h4>
+                    <canvas id="chartPerfilAm"></canvas>
+                    <p class="text-sm text-gray-500 mt-4">Nota: O total exclui 3 participantes com resposta indefinida.</p>
                 </div>
+                <div class="card bg-white p-6">
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">B.Q5. Avaliação da Revitalização (N=10)</h4>
+                    <canvas id="chartRevitalizacaoAm"></canvas>
+                    <p class="text-sm text-gray-500 mt-4">Nota: O total exclui 1 participante com resposta indefinida.</p>
+                </div>
+                <div class="card bg-white p-6">
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">B.Q4. Acessibilidade (N=10)</h4>
+                    <canvas id="chartAcessibilidadeAm"></canvas>
+                    <p class="text-sm text-gray-500 mt-4 font-bold text-red-600">Alerta: 100% de avaliações negativas ou com problemas.</p>
+                </div>
+                <div class="card bg-white p-6">
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">B.Q6. Avaliação Geral do Bairro (N=7)</h4>
+                    <canvas id="chartAvaliacaoGeralAm"></canvas>
+                    <p class="text-sm text-gray-500 mt-4">Nota: O total exclui 4 participantes com respostas indefinidas/incompletas.</p>
+                </div>
+            </div>
 
-                <!-- B.Q2: Conservação de Calçadas e Rampas -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">B.Q2: Avaliação da Conservação de Calçadas</h3>
-                    <p class="text-gray-700">A avaliação é **100% Negativa** para as 8 respostas válidas. As calçadas são universalmente classificadas como precárias, com pontos ou problemas que dificultam a locomoção.</p>
+            <!-- Detalhes Qualitativos AM -->
+            <div class="mt-8 card bg-white p-6">
+                <h4 class="text-xl font-semibold text-indigo-600 mb-3">Detalhes Qualitativos Amaralina</h4>
+                <div class="space-y-4 text-gray-700">
+                     <p>
+                        <span class="font-semibold text-indigo-600">Impacto do BRT (C.Q1):</span> A expansão do BRT/modais trouxe **Melhorias Significativas** para 6 dos 8 respondentes. No entanto, 2 participantes (Roque, Aurora) sentiram que **piorou a circulação** ou a disponibilidade de outras linhas, indicando um atrito com a infraestrutura existente.
+                        <canvas id="chartImpactoBRTAm" class="mt-4"></canvas>
+                    </p>
+                    <p>
+                        <span class="font-semibold text-indigo-600">Conservação de Calçadas (B.Q2):</span> A percepção é massivamente negativa. A maioria indica **"Dificuldade de locomoção"** e problemas de infraestrutura (Cauan, Aurora, Valdinei, Carolina, Helena, Paulo César). Apenas um participante (Roque) classificou os problemas como "pontuais".
+                    </p>
+                    <p>
+                        <span class="font-semibold text-indigo-600">Uso da Orla (B.Q6/C.Q2):</span> A orla é classificada como **"Muito Convidativa"** pelos que a avaliam positivamente. Os moradores Roque e Valdinei afirmam utilizá-la **Diariamente** para Lazer, Rotina e Trânsito, com acesso a pé considerado fácil e seguro por quem a frequenta.
+                    </p>
                 </div>
+            </div>
 
-                <!-- B.Q3: Modais de Transporte Público -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">B.Q3: Uso e Confiabilidade do Transporte Público</h3>
-                    <p class="text-gray-700">O uso de **Ônibus** e **Subtipos** é frequente. A confiabilidade é bem avaliada, com a maioria considerando o serviço frequente e confiável (3 respostas) ou apenas com a menção de uso de subtipos (2 respostas).</p>
-                </div>
+        </section>
 
-                <!-- B.Q4: Acessibilidade no Comércio -->
-                <div class="bg-red-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-red-700 mb-3">B.Q4: Acessibilidade de Comércio/Lazer</h3>
-                    <div class="flex justify-center w-full md:w-1/2 mx-auto">
-                        <canvas id="chartRV_BQ4"></canvas>
-                    </div>
-                    <p class="text-gray-700 mt-4">A percepção da acessibilidade é quase unânime: **90%** classificam como **Precária ou Inexistente**. Houve apenas 1 resposta classificando como adequada.</p>
-                </div>
 
-                <!-- B.Q5: Revitalização -->
-                <div class="bg-red-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-red-700 mb-3">B.Q5: Avaliação da Revitalização da Orla (N=9)</h3>
-                    <canvas id="chartRV_BQ5"></canvas>
-                    <p class="text-gray-700 mt-4">A satisfação é maior do que em Amaralina. Quase metade (**44.4%**) considera a revitalização **Plenamente Positiva**. O restante (**55.6%**) aponta ressalvas, mas não houve respostas negativas.</p>
-                </div>
+        <!-- ============================================= -->
+        <!-- SEÇÃO 3: RESUMO GERAL E COMPARAÇÃO -->
+        <!-- ============================================= -->
 
-                <!-- B.Q6: Orla Convidativa e Avaliação Geral -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">B.Q6: Uso e Avaliação Geral do Bairro</h3>
-                    <p class="text-gray-700">A orla é considerada convidativa (66.7%), mas a avaliação do bairro é dividida, com 4 respostas classificando o bairro como "Ruim/Regular" (principalmente visitantes) e 2 como "Ótima/Excelente" (principalmente moradores).</p>
-                </div>
+        <section class="mb-12 border-l-4 border-purple-500 pl-4">
+            <h2 class="text-3xl font-bold text-purple-700 mb-6">3. Resumo Geral e Comparativo</h2>
+            
+            <!-- Resumo Executivo GERAL -->
+            <div class="card bg-white p-6 mb-8 border-t-4 border-purple-500">
+                <h3 class="text-2xl font-semibold text-purple-600 mb-3">Conclusão dos Bairros</h3>
+                <p class="text-gray-700 leading-relaxed space-y-3">
+                    <p>A pesquisa combinada (N=20) indica que ambos os bairros, Rio Vermelho e Amaralina, compartilham a mesma crítica principal: **a falta de acessibilidade em comércios e locais de lazer** e o sentimento de que a **revitalização está incompleta**.</p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>**Acessibilidade:** Amaralina apresenta uma crítica unânime (100% dos respondentes) à acessibilidade precária, enquanto no Rio Vermelho o índice é de 83.3%.</li>
+                        <li>**Revitalização:** A percepção de que a obra está incompleta é ligeiramente maior em Amaralina (80%) do que no Rio Vermelho (75%).</li>
+                        <li>**Perfil:** O Rio Vermelho tem um perfil majoritariamente de **visitantes esporádicos**, enquanto Amaralina possui uma distribuição mais equilibrada entre **moradores e visitantes**.</li>
+                        <li>**Transporte (BRT):** Em ambos os bairros, a expansão do BRT é vista majoritariamente como uma **melhoria significativa** na circulação geral, apesar de alguns conflitos pontuais mencionados em Amaralina.</li>
+                        <li>**Avaliação Geral:** A satisfação geral com a Orla e o bairro é relativamente equilibrada, com uma leve tendência positiva em Amaralina.</li>
+                    </ul>
+                </p>
+            </div>
 
-                <!-- C.Q1: Impacto do BRT -->
-                <div class="bg-red-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-red-700 mb-3">C.Q1: BRT e a Circulação de Outras Linhas (N=5)</h3>
-                    <div class="flex justify-center w-full md:w-1/2 mx-auto">
-                        <canvas id="chartRV_CQ1"></canvas>
-                    </div>
-                    <p class="text-gray-700 mt-4">A percepção de piora é menor do que em Amaralina. **60%** dos respondentes viram a circulação piorar, mas **40%** afirmam que houve melhoria. A percepção negativa é menos intensa neste bairro.</p>
+            <!-- Gráficos de Comparação -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card bg-white p-6">
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">Comparativo: Acessibilidade Precária (Porcentagem)</h4>
+                    <canvas id="chartComparativoAcessibilidade"></canvas>
                 </div>
-                
-                 <!-- C.Q2: Frequência de Uso da Orla -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">C.Q2: Frequência de Uso da Orla para Lazer/Esporte</h3>
-                    <p class="text-gray-700">A orla é utilizada por lazer/esporte, com destaque para o uso **Diário (1)** e o acesso a pé é considerado **fácil e seguro**.</p>
-                </div>
-
-                <!-- D.Q1: Integração entre Modais -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">D.Q1: Integração de Modais para Visitantes</h3>
-                    <p class="text-gray-700">4 respostas válidas indicam que a integração **Dificulta (3)** mais do que **Facilita (1)** o acesso de quem vem de outras regiões da cidade.</p>
+                <div class="card bg-white p-6">
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">Comparativo: Revitalização Incompleta (Porcentagem)</h4>
+                    <canvas id="chartComparativoRevitalizacao"></canvas>
                 </div>
             </div>
         </section>
 
-        <!-- Seção 3: Análise Global -->
-        <section id="global" class="mb-10 pt-8 border-t border-gray-300">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-indigo-200 pb-2">3. Análise Global (Amaralina + Rio Vermelho - N=20)</h2>
-            <div class="space-y-6">
-
-                <!-- A.Q1: Perfil Global -->
-                <div class="bg-indigo-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-indigo-700 mb-3">A.Q1: Perfil do Participante Global (N=20)</h3>
-                    <div class="flex justify-center w-full md:w-1/2 mx-auto">
-                        <canvas id="chartGlobal_AQ1"></canvas>
-                    </div>
-                    <p class="text-gray-700 mt-4">Globalmente, a amostra é ligeiramente inclinada para **Visitantes (55%)**.</p>
-                </div>
-
-                <!-- B.Q1/B.Q3: Transporte Geral/Público -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">B.Q1/B.Q3: Modais de Transporte Mais Usados</h3>
-                    <p class="text-gray-700">A maior parte da mobilidade diária é feita por **Transporte Individual (Carro Particular, Apps de Transporte)**, mesmo entre os moradores. O **Transporte Público (Ônibus/Subtipos)** é utilizado, mas sua frequência e confiabilidade geram opiniões mistas.</p>
-                </div>
-                
-                <!-- B.Q2/C.Q2: Calçadas e Uso da Orla -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">B.Q2/C.Q2: Infraestrutura para Pedestres</h3>
-                    <p class="text-gray-700">A conservação das calçadas e pisos táteis é **majoritariamente negativa (mais de 90% das respostas)**, dificultando a locomoção. Em contraste, o acesso à orla a pé é considerado **fácil e seguro** pelos usuários frequentes, indicando que a dificuldade se concentra no entorno do bairro.</p>
-                </div>
-
-                <!-- B.Q4: Acessibilidade Global -->
-                <div class="bg-indigo-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-indigo-700 mb-3">B.Q4: Acessibilidade de Comércio/Lazer (N=20)</h3>
-                    <div class="flex justify-center w-full md:w-1/2 mx-auto">
-                        <canvas id="chartGlobal_BQ4"></canvas>
-                    </div>
-                    <p class="text-gray-700 mt-4">A acessibilidade é a falha crítica do sistema: **95%** classificam-na como **Precária ou Inexistente**. Apenas 1 resposta a considerou adequada.</p>
-                </div>
-                
-                <!-- B.Q5: Revitalização Global -->
-                <div class="bg-indigo-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-indigo-700 mb-3">B.Q5: Avaliação da Revitalização da Orla (N=16)</h3>
-                    <canvas id="chartGlobal_BQ5"></canvas>
-                    <p class="text-gray-700 mt-4">O resultado geral é positivo, mas cauteloso: **56.25%** aponta **Ressalvas** (detalhes, manutenção, segurança), enquanto **37.5%** estão **Plenamente Satisfeitos**. A menção a "Negativa" (6.25%) veio apenas de Amaralina.</p>
-                </div>
-
-                <!-- C.Q1: Impacto do BRT Global -->
-                <div class="bg-indigo-50 p-4 rounded-lg card">
-                    <h3 class="font-semibold text-xl text-indigo-700 mb-3">C.Q1: BRT e a Circulação de Outras Linhas (N=11)</h3>
-                    <div class="flex justify-center w-full md:w-1/2 mx-auto">
-                        <canvas id="chartGlobal_CQ1"></canvas>
-                    </div>
-                    <p class="text-gray-700 mt-4">A percepção geral é de que o BRT **piorou** a circulação e disponibilidade de outras linhas para **72.7%** dos usuários de transporte público. A insatisfação é maior em Amaralina (83.3%) do que no Rio Vermelho (60%).</p>
-                </div>
-
-                <!-- B.Q6/D.Q1: Orla Convidativa e Integração -->
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="font-semibold text-xl text-gray-800 mb-3">B.Q6/D.Q1: Avaliação do Bairro e Integração</h3>
-                    <p class="text-gray-700">A orla é vista como convidativa em geral, mas a avaliação do bairro varia entre Regular e Excelente, com segurança e manutenção sendo pontos de fragilidade. A maioria das respostas válidas para D.Q1 indica que a integração de modais **Dificulta (80%)** o acesso de visitantes.</p>
-                </div>
-            </div>
-        </section>
+        <footer class="text-center mt-10 text-gray-500 text-sm">
+            Relatório Consolidado gerado com base nas Pesquisas de Mobilidade Urbana do Rio Vermelho e Amaralina.
+        </footer>
 
     </div>
 
     <script>
-        // --- DADOS AMARALINA (Antigo RV) (N=10) ---
-        // A.Q1: Morador 6, Visitante 4 (60%/40%)
-        const dataAM_AQ1 = { labels: ['Morador (60%)', 'Visitante (40%)'], datasets: [{ data: [6, 4], backgroundColor: ['#047857', '#34d399'], hoverOffset: 4 }] };
-        // B.Q4: Precária 10, Adequada 0 (100%/0%)
-        const dataAM_BQ4 = { labels: ['Precária/Inexistente (100%)', 'Adequada (0%)'], datasets: [{ data: [10, 0], backgroundColor: ['#ef4444', '#10b981'], hoverOffset: 4 }] };
-        // B.Q5: Plenamente Positiva 2, Positiva c/ Ressalvas 4, Negativa 1. (28.6%/57.1%/14.3%)
-        const dataAM_BQ5 = { 
-            labels: ['Plenamente Positiva (28.6%)', 'Positiva c/ Ressalvas (57.1%)', 'Negativa (14.3%)'], 
-            datasets: [{ label: 'Avaliação da Revitalização', data: [2, 4, 1], backgroundColor: ['#10b981', '#3b82f6', '#ef4444'] }] 
+        // Função utilitária para criar gráficos
+        function createChart(chartId, type, data, options) {
+            const ctx = document.getElementById(chartId).getContext('2d');
+            new Chart(ctx, {
+                type: type,
+                data: data,
+                options: options
+            });
+        }
+
+        /* =============================================
+           DADOS DOS BAIRROS
+           ============================================= */
+
+        // Dados do Rio Vermelho (RV) - N=9
+        const dataRV = {
+            perfil: { morador: 1, visitante_frequente: 2, visitante_esporadico: 5 }, // N=8
+            revitalizacao: { suficiente_significativa: 2, incompleta_faltou_detalhe: 6 }, // N=8
+            acessibilidade: { precaria_inexistente: 5, sim_adequada: 1 }, // N=6
+            avaliacao_geral: { excelente_convidativa: 3, regular: 4 } // N=7
         };
-        // C.Q1: Piorou 5, Melhorou 1 (83.3%/16.7%)
-        const dataAM_CQ1 = { labels: ['Piorou (83.3%)', 'Melhorou (16.7%)'], datasets: [{ data: [5, 1], backgroundColor: ['#ef4444', '#3b82f6'], hoverOffset: 4 }] };
-
-        // --- DADOS RIO VERMELHO (Antigo AM) (N=10) ---
-        // A.Q1: Morador 3, Visitante 7 (30%/70%)
-        const dataRV_AQ1 = { labels: ['Morador (30%)', 'Visitante (70%)'], datasets: [{ data: [3, 7], backgroundColor: ['#b91c1c', '#f87171'], hoverOffset: 4 }] };
-        // B.Q4: Precária 9, Adequada 1 (90%/10%)
-        const dataRV_BQ4 = { labels: ['Precária/Inexistente (90%)', 'Adequada (10%)'], datasets: [{ data: [9, 1], backgroundColor: ['#ef4444', '#10b981'], hoverOffset: 4 }] };
-        // B.Q5: Plenamente Positiva 4, Positiva c/ Ressalvas 5 (44.4%/55.6%)
-        const dataRV_BQ5 = { 
-            labels: ['Plenamente Positiva (44.4%)', 'Positiva c/ Ressalvas (55.6%)'], 
-            datasets: [{ label: 'Avaliação da Revitalização', data: [4, 5], backgroundColor: ['#10b981', '#3b82f6'] }] 
+        // Dados de Amaralina (Am) - N=11
+        const dataAm = {
+            perfil: { morador: 4, visitante_frequente: 1, visitante_esporadico: 3 }, // N=8
+            revitalizacao: { suficiente_significativa: 2, incompleta_faltou_detalhe: 8 }, // N=10
+            acessibilidade: { nao_adequada_dificuldades: 10, sim_adequada: 0 }, // N=10
+            avaliacao_geral: { excelente_convidativa: 4, regular: 3 }, // N=7
+            impacto_brt: { melhoria_significativa: 6, piora_circulacao: 2 } // N=8
         };
-        // C.Q1: Piorou 3, Melhorou 2 (60%/40%)
-        const dataRV_CQ1 = { labels: ['Piorou (60%)', 'Melhorou (40%)'], datasets: [{ data: [3, 2], backgroundColor: ['#ef4444', '#3b82f6'], hoverOffset: 4 }] };
-
-        // --- DADOS GLOBAL (N=20) ---
-        const dataGlobal_AQ1 = { labels: ['Visitante (55%)', 'Morador (45%)'], datasets: [{ data: [11, 9], backgroundColor: ['#4f46e5', '#818cf8'], hoverOffset: 4 }] };
-        const dataGlobal_BQ4 = { labels: ['Precária/Inexistente (95%)', 'Adequada (5%)'], datasets: [{ data: [19, 1], backgroundColor: ['#ef4444', '#10b981'], hoverOffset: 4 }] };
-        const dataGlobal_BQ5 = { 
-            labels: ['Plenamente Positiva (37.5%)', 'Positiva c/ Ressalvas (56.25%)', 'Negativa (6.25%)'], 
-            datasets: [{ label: 'Avaliação da Revitalização', data: [6, 9, 1], backgroundColor: ['#10b981', '#3b82f6', '#ef4444'] }] 
-        };
-        const dataGlobal_CQ1 = { labels: ['Piorou (72.7%)', 'Melhorou (27.3%)'], datasets: [{ data: [8, 3], backgroundColor: ['#ef4444', '#3b82f6'], hoverOffset: 4 }] };
 
 
-        // --- CONFIGURAÇÕES BÁSICAS ---
-        const pieOptions = { responsive: true, plugins: { legend: { position: 'right' }, title: { display: false } } };
-        const barOptions = { 
+        /* =============================================
+           GRÁFICOS RIO VERMELHO
+           ============================================= */
+
+        // Perfil RV (PIZZA)
+        createChart('chartPerfilRV', 'pie', {
+            labels: ['Morador', 'Visitante Frequente', 'Visitante Esporádico'],
+            datasets: [{
+                data: [dataRV.perfil.morador, dataRV.perfil.visitante_frequente, dataRV.perfil.visitante_esporadico],
+                backgroundColor: ['rgba(59, 130, 246, 0.8)', 'rgba(16, 185, 129, 0.8)', 'rgba(245, 158, 11, 0.8)'],
+            }]
+        }, { responsive: true, aspectRatio: 1.5, plugins: { legend: { position: 'right' } } });
+
+        // Revitalização RV (BARRA)
+        createChart('chartRevitalizacaoRV', 'bar', {
+            labels: ['Suficiente/Significativa', 'Incompleta/Faltou Detalhe'],
+            datasets: [{
+                label: 'Número de Respostas',
+                data: [dataRV.revitalizacao.suficiente_significativa, dataRV.revitalizacao.incompleta_faltou_detalhe],
+                backgroundColor: ['rgba(22, 163, 74, 0.8)', 'rgba(239, 68, 68, 0.8)'],
+                borderWidth: 1
+            }]
+        }, { responsive: true, aspectRatio: 1.5, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 8, ticks: { stepSize: 1 } } } });
+
+        // Acessibilidade RV (PIZZA)
+        createChart('chartAcessibilidadeRV', 'pie', {
+            labels: ['Precária/Inexistente', 'Sim/Adequada'],
+            datasets: [{
+                data: [dataRV.acessibilidade.precaria_inexistente, dataRV.acessibilidade.sim_adequada],
+                backgroundColor: ['rgba(107, 114, 128, 0.8)', 'rgba(59, 130, 246, 0.8)'],
+            }]
+        }, { responsive: true, aspectRatio: 1.5, plugins: { legend: { position: 'right' } } });
+
+        // Avaliação Geral RV (BARRA)
+        createChart('chartAvaliacaoGeralRV', 'bar', {
+            labels: ['Excelente/Muito Convidativa', 'Regular'],
+            datasets: [{
+                label: 'Número de Respostas',
+                data: [dataRV.avaliacao_geral.excelente_convidativa, dataRV.avaliacao_geral.regular],
+                backgroundColor: ['rgba(79, 70, 229, 0.8)', 'rgba(251, 191, 36, 0.8)'],
+                borderWidth: 1
+            }]
+        }, { responsive: true, aspectRatio: 1.5, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 8, ticks: { stepSize: 1 } } } });
+
+
+        /* =============================================
+           GRÁFICOS AMARALINA
+           ============================================= */
+        
+        // Perfil Am (PIZZA)
+        createChart('chartPerfilAm', 'pie', {
+            labels: ['Morador', 'Visitante Frequente', 'Visitante Esporádico'],
+            datasets: [{
+                data: [dataAm.perfil.morador, dataAm.perfil.visitante_frequente, dataAm.perfil.visitante_esporadico],
+                backgroundColor: ['rgba(79, 70, 229, 0.8)', 'rgba(16, 185, 129, 0.8)', 'rgba(245, 158, 11, 0.8)'],
+            }]
+        }, { responsive: true, aspectRatio: 1.5, plugins: { legend: { position: 'right' } } });
+
+        // Revitalização Am (BARRA)
+        createChart('chartRevitalizacaoAm', 'bar', {
+            labels: ['Suficiente/Completa', 'Incompleta/Faltou Detalhe'],
+            datasets: [{
+                label: 'Número de Respostas',
+                data: [dataAm.revitalizacao.suficiente_significativa, dataAm.revitalizacao.incompleta_faltou_detalhe],
+                backgroundColor: ['rgba(22, 163, 74, 0.8)', 'rgba(239, 68, 68, 0.8)'],
+                borderWidth: 1
+            }]
+        }, { responsive: true, aspectRatio: 1.5, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 10, ticks: { stepSize: 1 } } } });
+
+        // Acessibilidade Am (PIZZA)
+        createChart('chartAcessibilidadeAm', 'pie', {
+            labels: ['Não Adequada/Dificuldades', 'Adequada'],
+            datasets: [{
+                data: [dataAm.acessibilidade.nao_adequada_dificuldades, dataAm.acessibilidade.sim_adequada],
+                backgroundColor: ['rgba(107, 114, 128, 0.8)', 'rgba(59, 130, 246, 0.8)'],
+            }]
+        }, { responsive: true, aspectRatio: 1.5, plugins: { legend: { position: 'right' } } });
+
+        // Avaliação Geral Am (BARRA)
+        createChart('chartAvaliacaoGeralAm', 'bar', {
+            labels: ['Excelente/Muito Convidativa', 'Regular'],
+            datasets: [{
+                label: 'Número de Respostas',
+                data: [dataAm.avaliacao_geral.excelente_convidativa, dataAm.avaliacao_geral.regular],
+                backgroundColor: ['rgba(59, 130, 246, 0.8)', 'rgba(251, 191, 36, 0.8)'],
+                borderWidth: 1
+            }]
+        }, { responsive: true, aspectRatio: 1.5, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 8, ticks: { stepSize: 1 } } } });
+
+        // Impacto BRT Am (BARRA)
+        createChart('chartImpactoBRTAm', 'bar', {
+            labels: ['Melhoria Significativa', 'Piora na Circulação'],
+            datasets: [{
+                label: 'Percepção dos Participantes (N=8)',
+                data: [dataAm.impacto_brt.melhoria_significativa, dataAm.impacto_brt.piora_circulacao],
+                backgroundColor: ['rgba(139, 92, 246, 0.8)', 'rgba(251, 146, 60, 0.8)'],
+                borderWidth: 1
+            }]
+        }, { responsive: true, aspectRatio: 2.5, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true, max: 8, ticks: { stepSize: 1 } } } });
+
+
+        /* =============================================
+           GRÁFICOS COMPARATIVOS
+           ============================================= */
+
+        // Comparativo: Acessibilidade Precária (BARRA)
+        const percentAcessibilidadeRV = (dataRV.acessibilidade.precaria_inexistente / (dataRV.acessibilidade.precaria_inexistente + dataRV.acessibilidade.sim_adequada)) * 100;
+        const percentAcessibilidadeAm = (dataAm.acessibilidade.nao_adequada_dificuldades / (dataAm.acessibilidade.nao_adequada_dificuldades + dataAm.acessibilidade.sim_adequada)) * 100;
+
+        createChart('chartComparativoAcessibilidade', 'bar', {
+            labels: ['Rio Vermelho (N=6)', 'Amaralina (N=10)'],
+            datasets: [{
+                label: '% de Respostas Negativas',
+                data: [percentAcessibilidadeRV, percentAcessibilidadeAm],
+                backgroundColor: ['rgba(59, 130, 246, 0.8)', 'rgba(79, 70, 229, 0.8)'],
+                borderWidth: 1
+            }]
+        }, { 
             responsive: true, 
-            scales: { y: { beginAtZero: true, title: { display: true, text: 'Número de Respostas' }, ticks: { stepSize: 1 } } },
-            plugins: { legend: { position: 'top' }, title: { display: false } }
-        };
+            aspectRatio: 1.5,
+            plugins: { 
+                legend: { display: false },
+                tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${context.parsed.y.toFixed(1)}%` } }
+            }, 
+            scales: { 
+                y: { beginAtZero: true, max: 100, title: { display: true, text: 'Porcentagem (%)' } } 
+            } 
+        });
 
-        // --- RENDERIZAÇÃO ---
-        window.onload = function() {
-            // AMARALINA Charts (antigo RV)
-            new Chart(document.getElementById('chartAM_AQ1'), { type: 'pie', data: dataAM_AQ1, options: pieOptions });
-            new Chart(document.getElementById('chartAM_BQ4'), { type: 'pie', data: dataAM_BQ4, options: pieOptions });
-            new Chart(document.getElementById('chartAM_BQ5'), { type: 'bar', data: dataAM_BQ5, options: barOptions });
-            new Chart(document.getElementById('chartAM_CQ1'), { type: 'pie', data: dataAM_CQ1, options: pieOptions });
+        // Comparativo: Revitalização Incompleta (BARRA)
+        const percentIncompletaRV = (dataRV.revitalizacao.incompleta_faltou_detalhe / (dataRV.revitalizacao.incompleta_faltou_detalhe + dataRV.revitalizacao.suficiente_significativa)) * 100;
+        const percentIncompletaAm = (dataAm.revitalizacao.incompleta_faltou_detalhe / (dataAm.revitalizacao.incompleta_faltou_detalhe + dataAm.revitalizacao.suficiente_significativa)) * 100;
 
-            // RIO VERMELHO Charts (antigo AM)
-            new Chart(document.getElementById('chartRV_AQ1'), { type: 'pie', data: dataRV_AQ1, options: pieOptions });
-            new Chart(document.getElementById('chartRV_BQ4'), { type: 'pie', data: dataRV_BQ4, options: pieOptions });
-            new Chart(document.getElementById('chartRV_BQ5'), { type: 'bar', data: dataRV_BQ5, options: barOptions });
-            new Chart(document.getElementById('chartRV_CQ1'), { type: 'pie', data: dataRV_CQ1, options: pieOptions });
+        createChart('chartComparativoRevitalizacao', 'bar', {
+            labels: ['Rio Vermelho (N=8)', 'Amaralina (N=10)'],
+            datasets: [{
+                label: '% de Revitalização Incompleta',
+                data: [percentIncompletaRV, percentIncompletaAm],
+                backgroundColor: ['rgba(239, 68, 68, 0.8)', 'rgba(124, 58, 237, 0.8)'],
+                borderWidth: 1
+            }]
+        }, { 
+            responsive: true, 
+            aspectRatio: 1.5,
+            plugins: { 
+                legend: { display: false },
+                tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${context.parsed.y.toFixed(1)}%` } }
+            }, 
+            scales: { 
+                y: { beginAtZero: true, max: 100, title: { display: true, text: 'Porcentagem (%)' } } 
+            } 
+        });
 
-            // Global Charts
-            new Chart(document.getElementById('chartGlobal_AQ1'), { type: 'pie', data: dataGlobal_AQ1, options: pieOptions });
-            new Chart(document.getElementById('chartGlobal_BQ4'), { type: 'pie', data: dataGlobal_BQ4, options: pieOptions });
-            new Chart(document.getElementById('chartGlobal_BQ5'), { type: 'bar', data: dataGlobal_BQ5, options: barOptions });
-            new Chart(document.getElementById('chartGlobal_CQ1'), { type: 'pie', data: dataGlobal_CQ1, options: pieOptions });
-        };
     </script>
 </body>
 </html>
